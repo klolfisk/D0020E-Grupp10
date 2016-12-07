@@ -34,6 +34,10 @@ The following tools, frameworks, projects and libraries is used in this project:
 Reading material
 ----------------
 
+Get github Student developer pack
+* [Student developer pack](https://education.github.com/pack)
+
+
 Agile workflow in git:
 * [GitHub Issues Can be Agile if You Do it Right](https://zube.io/blog/agile-project-management-workflow-for-github-issues/)
 * [waffle.io](https://waffle.io/)
@@ -42,7 +46,7 @@ Agile workflow in git:
 
 
 Trash
-----
+-----
 
 This shit should be moved to a proper place. Not here
 
