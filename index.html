@@ -3,7 +3,7 @@
 	<head>
 
 		<script type="text/javascript" src="js/angular.min.js"></script> 
-
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Raleway" />
 
 	    <meta charset="utf-8">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,24 +20,34 @@
 	    <link href="css/style.css" rel="stylesheet">
 	    <script src="js/jquery-3.1.1.min.js"></script>
 	    <script src="js/jquery-ui.js"></script>
+		<style>
+  			.draggable { width: 100px; height: 500px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; background-color: white; border: 1px solid black;}
 
-	      <style>
-  #draggable { width: 100px; height: 500px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; background-color: white; }
-  </style>
+  		</style>
+		<script>
 
-	      <script>
-  $( function() {
-    $( "#draggable" ).draggable();
-    $( "#droppable" ).droppable({
-      drop: function( event, ui ) {
-        $( this )
-          .addClass( "ui-state-highlight" )
-          .find( "p" )
-            .html( "Dropped!" );
-      }
-    });
-  } );
-  </script>
+			$( function() {
+	    		$( ".draggable" ).draggable({
+	    			containment: "parent"
+
+	    		});
+	    		$( ".droppable" ).droppable({
+	      			drop: function( event, ui ) {
+	        	$( this )
+	          		.addClass( "ui-state-highlight" )
+	          		.find( "p" )
+	            	.html( "Dropped!" );
+	      			}
+	    		});
+  			});
+
+			function createInput(){
+	        	var $input = $('<div class="draggable">spawned draggable object</div>');
+	        	$input.draggable();
+	        	$input.appendTo($("#main-content"));
+    		}
+
+ 		 </script>
 
 	    <title></title>
 
@@ -45,14 +55,8 @@
 	<body>
 
 <header>
-	<div class="navbar navbar-inverse" id="test">
-		<div class="container">
-		<div class="navbar-header">
-		
-				<a href="#" class="navbar-brand">:^)</a>
-
-		</div>
-	</div>
+	<div class="navbar navbar-default" id="test">
+		<div class="container">test	</div>
 	</div>
 </header>
 <div class="container">
@@ -62,14 +66,17 @@
         	<ul class="nav nav-stacked">
 			  <li role="presentation"><a href="#">+ Server</a></li>
 			  <li role="presentation"><a href="#">+ Container</a></li>
+			  <a class="btn btn-primary" onclick="createInput();">Create</a>
 			</ul>
 
         </div>
         <div id="main-content" class="col-md-10 no-float">
 
-        	<div id="draggable" class="ui-widget-content">
-  <p>Drag me to my target</p>
-</div>
+   			<div class="draggable">Draggable</div>
+
+        	<div class="draggable" class="ui-widget-content">
+  			<p>Drag me to my target</p>
+			</div>
         </div>
     </div>
 </div>

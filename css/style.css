@@ -1,6 +1,14 @@
 html,body,.container {
     height:100%;
+    background-color: #f8f8f8;
+	font-family: Raleway;
+	font-size: 14px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 400;
+	line-height: 20px;
 }
+
 .container {
     display:table;
     width: 100%;
@@ -8,6 +16,7 @@ html,body,.container {
     padding: 50px 0 0 0; /*set left/right padding according to needs*/
     box-sizing: border-box;
 }
+
 header {
     height: 50px;
 }
@@ -17,12 +26,9 @@ header {
     display: table-row;
 }
 
-.col-md-2 {   
-    background: #e3e3e3;
-    border-right: 1px solid black;
-}
+
 .col-md-10 {
-    background: yellow;  
+    background-color: #f8f8f8;  
 }
 
 .row .no-float {
@@ -32,6 +38,8 @@ header {
 
 #sidebar {
     height: 100%;
+	background: #f8f8f8;
+    border-right: 2px solid black;
 }
 
 #main-content {
@@ -41,6 +49,7 @@ header {
 #test {
  border-radius: 0px;
  padding: 2px;
- color: white;
+ color: black;
+ border-bottom: 2px solid black;
 }
 
