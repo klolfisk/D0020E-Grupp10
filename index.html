@@ -20,31 +20,12 @@
 	    <link href="css/style.css" rel="stylesheet">
 	    <script src="js/jquery-3.1.1.min.js"></script>
 	    <script src="js/jquery-ui.js"></script>
-		<style>
-  			.draggable { width: 100px; height: 500px; padding: 0.5em; float: left; margin: 10px 10px 10px 0; background-color: white; border: 1px solid black;}
-
-  		</style>
 		<script>
 
-			$( function() {
-	    		$( ".draggable" ).draggable({
-	    			containment: "parent"
-
-	    		});
-	    		$( ".droppable" ).droppable({
-	      			drop: function( event, ui ) {
-	        	$( this )
-	          		.addClass( "ui-state-highlight" )
-	          		.find( "p" )
-	            	.html( "Dropped!" );
-	      			}
-	    		});
-  			});
-
-			function createInput(){
+			function createBox(){
 	        	var $input = $('<div class="draggable">spawned draggable object</div>');
-	        	$input.draggable();
-	        	$input.appendTo($("#main-content"));
+	        	$input.draggable({containment: "#main-content"});
+	        	$input.prependTo($("#main-content"));
     		}
 
  		 </script>
@@ -55,28 +36,22 @@
 	<body>
 
 <header>
-	<div class="navbar navbar-default" id="test">
-		<div class="container">test	</div>
+	<div class="navbar navbar-default navbar-fixed-top navbar-offset" id="topbar">
+		<img src="https://d3nmt5vlzunoa1.cloudfront.net/phpstorm/files/2015/10/large_v-trans.png"><h4> File Edit Arrange Extras Help</h4>
 	</div>
 </header>
-<div class="container">
+<div class="container container-fluid scrollable">
     <div class="row">
         <div id="sidebar" class="col-md-2 no-float"><h3>Commands</h3>
 
         	<ul class="nav nav-stacked">
-			  <li role="presentation"><a href="#">+ Server</a></li>
-			  <li role="presentation"><a href="#">+ Container</a></li>
-			  <a class="btn btn-primary" onclick="createInput();">Create</a>
+			  <li role="presentation"><a href="#" onclick="createBox();">+ Server</a></li>
+			  <li role="presentation"><a href="#" onclick="createBox();">+ Container</a></li>
 			</ul>
 
         </div>
         <div id="main-content" class="col-md-10 no-float">
 
-   			<div class="draggable">Draggable</div>
-
-        	<div class="draggable" class="ui-widget-content">
-  			<p>Drag me to my target</p>
-			</div>
         </div>
     </div>
 </div>
