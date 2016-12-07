@@ -15,8 +15,8 @@ We have chosen to not focus on the following features:
 * TODO
 * TODO
 
-## Infrastructure
------------------
+Infrastructure
+--------------
 
 The following tools, frameworks, projects and libraries is used in this project:
 
@@ -31,7 +31,8 @@ The following tools, frameworks, projects and libraries is used in this project:
 * Javascript
   - Angular.js
 
-## Reading material
+Reading material
+----------------
 
 Agile workflow in git:
 * [GitHub Issues Can be Agile if You Do it Right](https://zube.io/blog/agile-project-management-workflow-for-github-issues/)
@@ -40,7 +41,8 @@ Agile workflow in git:
 * [Github Scrum Workflow](https://github.com/jvandemo/github-scrum-workflow)
 
 
-## Trash
+Trash
+----
 
 This shit should be moved to a proper place. Not here
 
