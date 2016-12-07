@@ -22,12 +22,20 @@ header {
     border-right: 1px solid black;
 }
 .col-md-10 {
-    background: yellow;  	
+    background: yellow;  
 }
 
 .row .no-float {
   display: table-cell;
-  float: none;
+  /*float: none;*/
+}
+
+#sidebar {
+    height: 100%;
+}
+
+#main-content {
+    height: 100%;
 }
 
 #test {
