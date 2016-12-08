@@ -19,9 +19,11 @@
 	    <link href="css/style.css" rel="stylesheet">
 	    <script src="js/jquery-3.1.1.min.js"></script>
 	    <script src="js/jquery-ui.js"></script>
+
+	    <!--överlappande grejer-->
 		<script>
 			$(function(){
-			   $(".asd").draggable({
+			   $(".newServer").draggable({
 					helper: function() {
 				        return jQuery(this).clone().appendTo('body').css({
 				            'zIndex': 5
@@ -36,29 +38,29 @@
 			            if (!ui.draggable.hasClass("draggable"))
 			                $(this).append(jQuery(ui.draggable).clone().addClass("draggable").draggable(
 			                	{
-				    revert: 'invalid',
-				    grid: [310,310],
-				    stop: function(){
-				        $(this).draggable('option','revert','invalid');
-				    }}
-			                	).removeClass("asd"));
+								    revert: 'invalid',
+								    grid: [310,310],
+								    stop: function(){
+								        $(this).draggable('option','revert','invalid');
+								    }
+								}).removeClass("newServer").append("<div class='remove'>X</div>"));
 			            }
 			    });
+
+			    $(".remove").on("click", function() {
+				  $(this).parent().remove();
+				});
 
 			});
 			function createBox(){
 
-	        	var $input = $('<div class="draggable"><a class="remove" href="#">X</a>spawned draggable object</div>');
+	        	//var $input = $('<div class="draggable"><a class="remove" href="#">X</a>spawned draggable object</div>');
 
-	        	$input.prependTo($("#main-content"));
+	        	//$input.prependTo($("#main-content"));
 
 	        	$("#main-content").droppable({
 	        		tolerance: "fit"
 	        	});
-
-	        	$(".remove").on("click", function() {
-				  $(this).parent().remove();
-				});
 
 	        	$('.draggable').draggable({
 				    revert: 'invalid',
@@ -74,11 +76,6 @@
 				        ui.draggable.draggable('option','revert',true);
 				    }
 				});
-
-
-				//------
-
-
     		}
 
  		 </script>
@@ -98,8 +95,7 @@
         <div id="sidebar" class="col-md-2 no-float"><h3>Commands</h3>
 
         	<ul class="nav nav-stacked">
-			  <!--<li role="presentation" ><a onclick="createBox();">+ Server</a></li>-->
-			  <div class="asd">cancer</div>
+			  <div class="newServer">+ Server</div>
 			  <li role="presentation" ><a onclick="createBox();">+ Container</a></li>
 			</ul>
 
