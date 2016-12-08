@@ -11,7 +11,6 @@
 	    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 	    <meta name="description" content="">
-	    <link rel="icon" href="../../favicon.ico">
 
 	    <!-- Bootstrap core CSS -->
 	    <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -21,11 +20,65 @@
 	    <script src="js/jquery-3.1.1.min.js"></script>
 	    <script src="js/jquery-ui.js"></script>
 		<script>
+			$(function(){
+			   $(".asd").draggable({
+					helper: function() {
+				        return jQuery(this).clone().appendTo('body').css({
+				            'zIndex': 5
+						});
+					},
+			        cursor: 'move',
+			        containment: "document",
+			        containment: "#main-content",
+				});
+				$('#main-content').droppable({
+			        drop: function(event, ui) {
+			            if (!ui.draggable.hasClass("draggable"))
+			                $(this).append(jQuery(ui.draggable).clone().addClass("draggable").draggable(
+			                	{
+				    revert: 'invalid',
+				    grid: [310,310],
+				    stop: function(){
+				        $(this).draggable('option','revert','invalid');
+				    }}
+			                	).removeClass("asd"));
+			            }
+			    });
 
+			});
 			function createBox(){
-	        	var $input = $('<div class="draggable">spawned draggable object</div>');
-	        	$input.draggable({containment: "#main-content"});
+
+	        	var $input = $('<div class="draggable"><a class="remove" href="#">X</a>spawned draggable object</div>');
+
 	        	$input.prependTo($("#main-content"));
+
+	        	$("#main-content").droppable({
+	        		tolerance: "fit"
+	        	});
+
+	        	$(".remove").on("click", function() {
+				  $(this).parent().remove();
+				});
+
+	        	$('.draggable').draggable({
+				    revert: 'invalid',
+				    grid: [310,310],
+				    stop: function(){
+				        $(this).draggable('option','revert','invalid');
+				    }
+				});
+				$('.draggable').droppable({
+				    greedy: true,
+				    tolerance: 'touch',
+				    drop: function(event,ui){
+				        ui.draggable.draggable('option','revert',true);
+				    }
+				});
+
+
+				//------
+
+
     		}
 
  		 </script>
@@ -45,13 +98,14 @@
         <div id="sidebar" class="col-md-2 no-float"><h3>Commands</h3>
 
         	<ul class="nav nav-stacked">
-			  <li role="presentation"><a href="#" onclick="createBox();">+ Server</a></li>
-			  <li role="presentation"><a href="#" onclick="createBox();">+ Container</a></li>
+			  <!--<li role="presentation" ><a onclick="createBox();">+ Server</a></li>-->
+			  <div class="asd">cancer</div>
+			  <li role="presentation" ><a onclick="createBox();">+ Container</a></li>
 			</ul>
 
         </div>
         <div id="main-content" class="col-md-10 no-float">
-
+        		
         </div>
     </div>
 </div>
