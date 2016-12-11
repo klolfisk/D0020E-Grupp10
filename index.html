@@ -22,6 +22,57 @@
 
 	    <!--överlappande grejer-->
 		<script>
+
+
+			function stop() {
+				$.ajax({
+						url: "http://127.0.0.1:4243/containers/jolly_mayer/stop",
+						//url: "http://localhost:2375/containers/json?all=1",
+						//url: "http://192.168.56.1:2375/containers/json?all=1",
+
+						crossDomain: true,
+						dataType: "json",
+						type: "POST",
+						success: function(data){
+								alert("stopped jolly_mayer");
+						}, 
+				});
+			};
+
+			function start() {
+				$.ajax({
+						url: "http://127.0.0.1:4243/containers/jolly_mayer/start",
+						//url: "http://localhost:2375/containers/json?all=1",
+						//url: "http://192.168.56.1:2375/containers/json?all=1",
+
+						crossDomain: true,
+						dataType: "json",
+						type: "POST",
+						success: function(data){
+								alert("started jolly_mayer");
+						}, 
+				});
+			};
+
+				function getAll() {
+				$.ajax({
+						url: "http://127.0.0.1:4243/containers/json?all=1",
+						//url: "http://localhost:2375/containers/json?all=1",
+						//url: "http://192.168.56.1:2375/containers/json?all=1",
+
+						crossDomain: true,
+						dataType: "json",
+						type: "GET",
+						success: function(a, status) {
+							console.log(a.responseJSON);
+							alert("sucess");
+						},
+						error: function(a, status) {
+							console.log(a.responseJSON);
+						}
+				});
+			};
+
 			$(function(){
 			   $(".newServer").draggable({
 					helper: function() {
@@ -31,11 +82,11 @@
 					},
 			        cursor: 'move',
 			        containment: "document",
-			        containment: "#main-content",
 				});
+
 				$('#main-content').droppable({
 			        drop: function(event, ui) {
-			            if (!ui.draggable.hasClass("draggable"))
+			            if (!ui.draggable.hasClass("draggable")) {
 			                $(this).append(jQuery(ui.draggable).clone().addClass("draggable").draggable(
 			                	{
 								    revert: 'invalid',
@@ -44,39 +95,18 @@
 								        $(this).draggable('option','revert','invalid');
 								    }
 								}).removeClass("newServer").append("<div class='remove'>X</div>"));
+			                start();
 			            }
+			        }
 			    });
 
-			    $(".remove").on("click", function() {
-				  $(this).parent().remove();
+				$(document).on("click", ".remove", function() {
+			    	$(this).parent().remove();
+			    	stop();
 				});
 
 			});
-			function createBox(){
-
-	        	//var $input = $('<div class="draggable"><a class="remove" href="#">X</a>spawned draggable object</div>');
-
-	        	//$input.prependTo($("#main-content"));
-
-	        	$("#main-content").droppable({
-	        		tolerance: "fit"
-	        	});
-
-	        	$('.draggable').draggable({
-				    revert: 'invalid',
-				    grid: [310,310],
-				    stop: function(){
-				        $(this).draggable('option','revert','invalid');
-				    }
-				});
-				$('.draggable').droppable({
-				    greedy: true,
-				    tolerance: 'touch',
-				    drop: function(event,ui){
-				        ui.draggable.draggable('option','revert',true);
-				    }
-				});
-    		}
+			
 
  		 </script>
 
@@ -96,7 +126,7 @@
 
         	<ul class="nav nav-stacked">
 			  <div class="newServer">+ Server</div>
-			  <li role="presentation" ><a onclick="createBox();">+ Container</a></li>
+			  <li role="presentation" ><a>+ Container</a></li>
 			</ul>
 
         </div>
