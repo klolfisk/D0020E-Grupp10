@@ -20,93 +20,90 @@
 	    <script src="js/jquery-3.1.1.min.js"></script>
 	    <script src="js/jquery-ui.js"></script>
 
-	    <!--överlappande grejer-->
-		<script>
 
+		<script>
+		// Kinda weird that "newServer" starts a container. Demo though.
+		var serverCount = 0;
 
 			function stop() {
 				$.ajax({
-						url: "http://127.0.0.1:4243/containers/jolly_mayer/stop",
-						//url: "http://localhost:2375/containers/json?all=1",
-						//url: "http://192.168.56.1:2375/containers/json?all=1",
-
-						crossDomain: true,
-						dataType: "json",
-						type: "POST",
-						success: function(data){
-								alert("stopped jolly_mayer");
-						}, 
+					url: "http://127.0.0.1:4243/containers/sad_morse/stop",
+					crossDomain: true,
+					dataType: "json",
+					type: "POST",
+					success: function(data) {
+						alert("stopped sad_morse");
+					},
 				});
 			};
 
 			function start() {
 				$.ajax({
-						url: "http://127.0.0.1:4243/containers/jolly_mayer/start",
-						//url: "http://localhost:2375/containers/json?all=1",
-						//url: "http://192.168.56.1:2375/containers/json?all=1",
-
-						crossDomain: true,
-						dataType: "json",
-						type: "POST",
-						success: function(data){
-								alert("started jolly_mayer");
-						}, 
-				});
-			};
-
-				function getAll() {
-				$.ajax({
-						url: "http://127.0.0.1:4243/containers/json?all=1",
-						//url: "http://localhost:2375/containers/json?all=1",
-						//url: "http://192.168.56.1:2375/containers/json?all=1",
-
-						crossDomain: true,
-						dataType: "json",
-						type: "GET",
-						success: function(a, status) {
-							console.log(a.responseJSON);
-							alert("sucess");
-						},
-						error: function(a, status) {
-							console.log(a.responseJSON);
-						}
-				});
-			};
-
-			$(function(){
-			   $(".newServer").draggable({
-					helper: function() {
-				        return jQuery(this).clone().appendTo('body').css({
-				            'zIndex': 5
-						});
+					url: "http://127.0.0.1:4243/containers/sad_morse/start",
+					crossDomain: true,
+					dataType: "json",
+					type: "POST",
+					success: function(data) {
+						alert("started sad_morse");
 					},
-			        cursor: 'move',
-			        containment: "document",
+				});
+			};
+
+			function getAll() {
+				$.ajax({
+					url: "http://127.0.0.1:4243/containers/json?all=1",
+					crossDomain: true,
+					dataType: "json",
+					type: "GET",
+					success: function(a, status) {
+						console.log(a.responseJSON);
+						alert("sucess");
+					},
+					error: function(a, status) {
+						console.log(a.responseJSON);
+					}
+				});
+			};
+			$(function(){
+			  $(".newServer").draggable({
+	        cursor: "move",
+	        containment: "window",
+	        helper: function() {
+	        	return $(this).clone().appendTo("body");
+	        }
 				});
 
 				$('#main-content').droppable({
-			        drop: function(event, ui) {
-			            if (!ui.draggable.hasClass("draggable")) {
-			                $(this).append(jQuery(ui.draggable).clone().addClass("draggable").draggable(
-			                	{
-								    revert: 'invalid',
-								    grid: [310,310],
-								    stop: function(){
-								        $(this).draggable('option','revert','invalid');
-								    }
-								}).removeClass("newServer").append("<div class='remove'>X</div>"));
-			                start();
-			            }
-			        }
-			    });
+					tolerance: 'fit',
+	        drop: function(event, ui) {
+	        	if( $(ui.draggable).hasClass("newServer")) {
+	        		serverCount++;
+		        	var box = $("<div/>", { class: "draggable", text: "Server "+serverCount, id:"server"+serverCount}).append("<a href='#' class='remove'>X</a>").draggable({
+		        		revert: "invalid",
+						    grid: [310,310],
+						    stop: function(){
+						      $(this).draggable("option", "revert", "invalid");
+					    	}
+		        	}).droppable({
+		        		greedy: true,
+						    tolerance: 'touch',
+						    drop: function(event,ui){
+						      ui.draggable.draggable('option','revert',true);
+						    }
+		        	});
+		        	
+		       	}
+		        $("#main-content").append(box);
+	        	start();
+	        }
+			  });
 
 				$(document).on("click", ".remove", function() {
-			    	$(this).parent().remove();
-			    	stop();
+		    	$(this).parent().remove();
+		    	stop();
 				});
 
 			});
-			
 
  		 </script>
 
@@ -125,9 +122,9 @@
         <div id="sidebar" class="col-md-2 no-float"><h3>Commands</h3>
 
         	<ul class="nav nav-stacked">
-			  <div class="newServer">+ Server</div>
-			  <li role="presentation" ><a>+ Container</a></li>
-			</ul>
+					  <li role="presentation" class="newServer move"><a>+ Server</a></li>
+					  <li role="presentation" class="move"><a>+ Container</a></li>
+					</ul>
 
         </div>
         <div id="main-content" class="col-md-10 no-float">

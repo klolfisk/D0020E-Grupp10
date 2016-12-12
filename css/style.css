@@ -45,6 +45,7 @@ header {
 	background-color: white; 
 	border: 1px solid black;
 	box-sizing:border-box;
+	cursor:move;
 }
 .draggable .remove {
 	font-size: 18pt;
@@ -53,10 +54,8 @@ header {
 	text-align:center;
 	float:right;
 }
-.newServer {
-	width: 100px;
-	height: 50px;
-	background:red;
+.move {
+	cursor:move;
 }
 #sidebar {
     height: 100%;
