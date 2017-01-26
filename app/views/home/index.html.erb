@@ -1,9 +1,9 @@
 <p class="visible-xs">
   <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas"><i class="glyphicon glyphicon-chevron-left"></i></button>
 </p>
-
+ 
 <div class="row">
-
+ 
     <div class="col-md-6">
         <h2>Servers</h2>
         <div class="well">
@@ -36,7 +36,33 @@
     <div class="col-md-6">
         <h2>Containers</h2>
         <div class="well">
-            <p>Shrink the browser width to make the sidebar collapse off canvase.</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Image</th>
+                  <th>Exposed port</th>
+                  <th>Host port</th>
+                  <th>Status</th>
+                  <th colspan="3"></th>
+                </tr>
+                </thead>
+                <tbody>
+                    <% @containers.each do |container| %>
+                      <tr>
+                        <td><%= container.name %></td>
+                        <td><%= container.image %></td>
+                        <td><%= container.exposed_port %></td>
+                        <td><%= container.host_port %></td>
+                        <td><%= container.status %></td>
+                        <td><%= link_to 'Show', container, class: 'btn btn-primary btn-xs' %></td>
+                        <td><%= link_to 'Edit', edit_container_path(container), class: 'btn btn-info btn-xs' %></td>
+                        <td><%= link_to 'Destroy', container, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %></td>
+                        <td><%= link_to 'Start', start_container_path(container), class: 'btn btn-danger btn-xs' %></td>
+                      </tr>
+                    <% end %>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

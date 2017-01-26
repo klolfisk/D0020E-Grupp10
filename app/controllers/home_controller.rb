@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
-  def index
-    @servers = Server.all
-  end
+	def index
+		@servers = Server.all
+		@containers = Container.all
+	end
 end

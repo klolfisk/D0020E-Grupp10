@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
 
-  resources :containers
+	resources :containers
 	root 'home#index'
-  resources :servers
-  get '/containers/:id/start', to: 'containers#start'
-  get '/containers/:id/stop', to: 'containers#stop'
-  get '/containers/:id/pause', to: 'containers#pause'
-  get '/containers/:id/unpause', to: 'containers#unpause'
+	resources :servers
+	get '/containers/:id/start', to: 'containers#start', as: 'start_container'
+	get '/containers/:id/stop', to: 'containers#stop'
+	get '/containers/:id/pause', to: 'containers#pause'
+	get '/containers/:id/unpause', to: 'containers#unpause'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
