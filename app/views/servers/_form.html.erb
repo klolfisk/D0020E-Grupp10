@@ -1,0 +1,44 @@
+<%= form_for(@server, html: {class: 'form-horizontal'}) do |f| %>
+  <% if @server.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@server.errors.count, "error") %> prohibited this server from being saved:</h2>
+
+      <ul>
+      <% @server.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :name, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="field form-group">
+    <%= f.label :ip, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_area :ip, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="field form-group">
+    <%= f.label :port, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_area :port, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="field form-group">
+    <%= f.label :running, class: 'col-sm-1 control-label' %>
+    <div class="col-sm-10">
+      <%= f.check_box :running %>
+    </div>
+  </div>
+  <div class="actions form-group">
+    <div class="col-sm-offset-1 col-sm-10">
+      <%= f.submit %>
+    </div>
+  </div>
+<% end %>
+

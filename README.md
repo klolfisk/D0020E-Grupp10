@@ -1,55 +1,24 @@
-D0020E, Autumn of '16
-============================
-Project in computer science, Group 10
+# README
 
-This is a project for the course D0020E at Luleå University of Technology.
-The goal of the project is to make a web-based GUI for administering Docker containers.
+This README would normally document whatever steps are necessary to get the
+application up and running.
 
-The system should:
-* TODO
-* TODO
-* TODO
+Things you may want to cover:
 
-We have chosen to not focus on the following features:
-* TODO
-* TODO
-* TODO
+* Ruby version
 
-Infrastructure
---------------
+* System dependencies
 
-The following tools, frameworks, projects and libraries is used in this project:
+* Configuration
 
-* Repository
-  - Github
-* Webserver
-  - Nginx
-* Database
-  - MongoDB
-* CSS
-  - Bootstrap
-* Javascript
-  - Angular.js
+* Database creation
 
-Reading material
-----------------
+* Database initialization
 
-Get github Student developer pack
-* [Student developer pack](https://education.github.com/pack)
+* How to run the test suite
 
+* Services (job queues, cache servers, search engines, etc.)
 
-Agile workflow in git:
-* [GitHub Issues Can be Agile if You Do it Right](https://zube.io/blog/agile-project-management-workflow-for-github-issues/)
-* [waffle.io](https://waffle.io/)
-* [How GitHub uses GitHub to build GitHub](https://www.youtube.com/watch?v=qyz3jkOBbQY)
-* [Github Scrum Workflow](https://github.com/jvandemo/github-scrum-workflow)
+* Deployment instructions
 
-
-Trash
------
-
-This shit should be moved to a proper place. Not here
-
-
-* Github as oauth
-* git.io url shortener. Can be used as script with curl
+* ...

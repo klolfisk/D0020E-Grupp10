@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Docker</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+   	<%= render partial: 'shared/navigation' %>
+    
+    <div class="row-offcanvas row-offcanvas-left">
+      <%= render partial: 'shared/sidemenu' %>
+      <div id="main">
+          <div class="col-md-12">
+            <%= yield %>
+            
+          </div>
+      </div>
+    </div><!--/row-offcanvas -->
+  
+  </body>
+</html>
