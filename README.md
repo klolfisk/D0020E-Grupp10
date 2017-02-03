@@ -7,8 +7,8 @@ The goal of the project is to make a web-based GUI for administering Docker cont
 
 The system should:
 * Allow for administration of a docker session from a web interface.
+* Be simple (both in implementation and usage).
 * Be secure.
-* TODO
 
 We have chosen to not focus on the following features:
 * Good looks.
@@ -41,11 +41,34 @@ The following tools, frameworks, projects and libraries are (might be) used in t
 * ~~Javascript~~
   - ~~Angular.js~~
 
+Git branch naming conventions
+-----------------------------
+
+### Standard branches
+
+These two branches will always exist and should only be written to by pull requests:
+
+* `master` will be merged to from `devel`after every working sprint demo and should always be a stable "release". Only merge from devel and maybe hot fixes if there are critical bugs. Only merging by reviewed pull requests.
+* `devel` will be merged to before every sprint demo, by pull request. All wip branches should be merged here when done.
+
+### Work branches
+
+These naming conventions should be used during active development.
+
+* `wip/branch_name` these are work in progress branches and should generally have the same name as the corresponding scrum story. A `wip` branch should, when finished, be merged into `devel`
+
+* `test/testing_something` should be used when you want to test something on a `wip` branch. If a test branch is successful it should be merged back into the `wip` branch it was branched out from. We generally don't push these branches to remote, unless there is a specific need to do so.
+
+* `fix/#issuenumber_issuename` should be used to fix bugs. Remember to both file an issue in GitHub AND the icebox in Pivotal Tracker.
+
 Reading material
 ----------------
 
 Get github Student developer pack
 * [Student developer pack](https://education.github.com/pack)
+
+Git branching model
+* [A successfull Git branching model](http://nvie.com/posts/a-successful-git-branching-model/)
 
 Agile workflow in git:
 * [GitHub Issues Can be Agile if You Do it Right](https://zube.io/blog/agile-project-management-workflow-for-github-issues/)
