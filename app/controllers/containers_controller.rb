@@ -4,7 +4,8 @@ class ContainersController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   #change to docker-ip:remote-docker-api-port
-  Docker.url = 'tcp://192.168.1.243:4243';
+  #Docker.url = 'tcp://192.168.1.243:4243';
+  Docker.url = 'tcp://192.168.1.142:4243';
 
   before_action :set_container, only: [:show, :edit, :update, :destroy, :start, :stop, :pause, :unpause]
 

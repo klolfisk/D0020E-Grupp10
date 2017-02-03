@@ -5,3 +5,36 @@
 th {
 	width: 100px;
 }
+
+#demo2_viewport {
+  overflow:hidden;
+  height: 1200px;
+  color:#fff;
+  background-color:white;
+
+  #demo2_wall {
+
+    ._tile {
+      font-size:18px;
+      font-weight:bold;
+
+    	._content {
+        margin:0;
+        padding:10px;
+        width:400px;
+        height:400px;
+        text-align:center;
+        color: black;
+      }
+    }
+
+    .test {
+      color:black;
+      background:red;
+      width: 300px;
+      height: 500px;
+
+    }
+  }
+}
+    
