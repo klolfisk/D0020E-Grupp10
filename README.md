@@ -52,12 +52,3 @@ Agile workflow in git:
 * [waffle.io](https://waffle.io/)
 * [How GitHub uses GitHub to build GitHub](https://www.youtube.com/watch?v=qyz3jkOBbQY)
 * [Github Scrum Workflow](https://github.com/jvandemo/github-scrum-workflow)
-
-Trash
------
-
-This shit should be moved to a proper place. Not here
-
-
-* Github as oauth
-* git.io url shortener. Can be used as script with curl
