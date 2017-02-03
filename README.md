@@ -21,7 +21,7 @@ Get started
 1. Install Docker
 2. Install Ruby on Rails
 3. Enable Dockers remote API (like [this](https://www.ivankrizsan.se/2016/05/18/enabling-docker-remote-api-on-ubuntu-16-04/))
-4. Clone this repository into Rails.
+4. Clone this repository into Rails. The current working branch is `gui-skeleton`
 5. Run `bundle install`.
 6. Change the `Docker.url` line in the container controller of rails, to use the IP for your docker remote API. If you are running Docker on the same machine as rails, this will be `Docker.url = 'tcp://localhost:4243'`.
 
