@@ -6,30 +6,40 @@ This is a project for the course D0020E at Luleå University of Technology.
 The goal of the project is to make a web-based GUI for administering Docker containers.
 
 The system should:
-* TODO
-* TODO
+* Allow for administration of a docker session from a web interface.
+* Be secure.
 * TODO
 
 We have chosen to not focus on the following features:
+* Good looks.
 * TODO
 * TODO
-* TODO
+
+Get started
+-----------
+
+1. Install Docker
+2. Install Ruby on Rails
+3. Enable Dockers remote API (like [this](https://www.ivankrizsan.se/2016/05/18/enabling-docker-remote-api-on-ubuntu-16-04/))
+4. Clone this repository into Rails.
+5. Run `bundle install`.
+6. Change the `Docker.url` line in the container controller of rails, to use the IP for your docker remote API. If you are running Docker on the same machine as rails, this will be `Docker.url = 'tcp://localhost:4243'`.
 
 Infrastructure
 --------------
 
-The following tools, frameworks, projects and libraries is used in this project:
+The following tools, frameworks, projects and libraries are (might be) used in this project:
 
 * Repository
   - Github
-* Webserver
-  - Nginx
-* Database
-  - MongoDB
+* ~~Webserver~~
+  - ~~Nginx~~
+* ~~Database~~
+  - ~~MongoDB~~
 * CSS
   - Bootstrap
-* Javascript
-  - Angular.js
+* ~~Javascript~~
+  - ~~Angular.js~~
 
 Reading material
 ----------------
@@ -37,13 +47,11 @@ Reading material
 Get github Student developer pack
 * [Student developer pack](https://education.github.com/pack)
 
-
 Agile workflow in git:
 * [GitHub Issues Can be Agile if You Do it Right](https://zube.io/blog/agile-project-management-workflow-for-github-issues/)
 * [waffle.io](https://waffle.io/)
 * [How GitHub uses GitHub to build GitHub](https://www.youtube.com/watch?v=qyz3jkOBbQY)
 * [Github Scrum Workflow](https://github.com/jvandemo/github-scrum-workflow)
-
 
 Trash
 -----
