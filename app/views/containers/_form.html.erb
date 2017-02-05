@@ -1,42 +1,50 @@
 <%= form_for(container) do |f| %>
-  <% if container.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(container.errors.count, "error") %> prohibited this container from being saved:</h2>
+<% if container.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(container.errors.count, "error") %> prohibited this container from being saved:</h2>
 
-      <ul>
-      <% container.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <ul>
+    <% container.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
 
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+
+
+<div class="form-inputs">
+  <div class="form-group has-success has-feedback">
+    <%= f.label :name, class: "sr-only" %>
+    <%= f.text_field(:name, class: "form-control", placeholder: "Name") %>
   </div>
 
-  <div class="field">
-    <%= f.label :image %>
-    <%= f.text_field :image %>
+  <div class="form-group has-success has-feedback">
+    <%= f.label :image, class: "sr-only" %>
+    <%= f.text_field(:image, class: "form-control", placeholder: "Image") %>
   </div>
 
-  <div class="field">
-    <%= f.label :command %>
-    <%= f.text_field :command %>
+  <div class="form-group has-success has-feedback">
+    <%= f.label :command, class: "sr-only" %>
+    <%= f.text_field(:command, class: "form-control", placeholder: "Command") %>
   </div>
 
-  <div class="field">
-    <%= f.label :exposed_port %>
-    <%= f.text_field :exposed_port %>
+  <div class="form-group has-success has-feedback">
+    <%= f.label :exposed_port, class: "sr-only" %>
+    <%= f.text_field(:exposed_port, class: "form-control", placeholder: "Exposed Port") %>
   </div>
 
-  <div class="field">
-    <%= f.label :host_port %>
-    <%= f.text_field :host_port %>
+  <div class="form-group has-success has-feedback">
+    <%= f.label :host_port, class: "sr-only" %>
+    <%= f.text_field(:host_port, class: "form-control", placeholder: "Host Port") %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit(class: "btn btn-default") %>
   </div>
+
+</div>
+
+
+
 <% end %>
