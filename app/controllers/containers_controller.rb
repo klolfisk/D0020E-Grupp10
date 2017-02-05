@@ -5,6 +5,7 @@ class ContainersController < ApplicationController
 
   #change to docker-ip:remote-docker-api-port
   Docker.url = 'tcp://192.168.1.243:4243';
+  #Docker.url = 'tcp://192.168.1.142:4243';
 
   before_action :set_container, only: [:show, :edit, :update, :destroy, :start, :stop, :pause, :unpause]
 
@@ -48,7 +49,7 @@ class ContainersController < ApplicationController
     respond_to do |format|
       if @container.save
 
-        format.html { redirect_to @container, notice: 'Container was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Container was successfully created.' }
         format.json { render :show, status: :created, location: @container }
       else
         format.html { render :new }
@@ -74,6 +75,7 @@ class ContainersController < ApplicationController
   # DELETE /containers/1
   # DELETE /containers/1.json
   def destroy
+    Docker::Container.get(Container.find(params[:id]).container_id).stop.remove;
     @container.destroy
     respond_to do |format|
       format.html { redirect_to containers_url, notice: 'Container was successfully destroyed.' }
