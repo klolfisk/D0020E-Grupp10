@@ -86,25 +86,34 @@ class ContainersController < ApplicationController
   def start
     Docker::Container.get(Container.find(params[:id]).container_id).start;
     @container.update(:status => 'running')
-    redirect_to :controller => 'home', :action => 'index'
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'Container was started.' }
+    end
+
   end
 
   def stop
     Docker::Container.get(Container.find(params[:id]).container_id).stop;
     @container.update(:status => 'exited')
-    redirect_to :controller => 'home', :action => 'index'
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'Container was stopped.' }
+    end
   end
 
   def pause
     Docker::Container.get(Container.find(params[:id]).container_id).pause;
     @container.update(:status => 'paused')
-    redirect_to :controller => 'home', :action => 'index'
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'Container was paused.' }
+    end
   end
 
   def unpause
     Docker::Container.get(Container.find(params[:id]).container_id).unpause;
     @container.update(:status => 'running')
-    redirect_to :controller => 'home', :action => 'index'
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: 'Container was unpaused.' }
+    end
   end
 
   private
