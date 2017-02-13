@@ -31,30 +31,47 @@ class ContainersController < ApplicationController
 
   # POST /containers
   # POST /containers.json
+
+  #Docker::Error::ClientError => No command specified
+  #Docker::Error::NotFoundError => No such image
+
   def create
-    @con = Docker::Container.create(
-      'name' => container_params[:name],
-      'Image' => container_params[:image],
-      'ExposedPorts' => { container_params[:exposed_port]+'/tcp' => {} },
-      'HostConfig' => {
-        'PortBindings' => {
-          container_params[:exposed_port]+'/tcp' => [{ 'HostPort' => container_params[:host_port] }]
+    begin
+      @con = Docker::Container.create(
+        'name' => container_params[:name],
+        'Image' => container_params[:image],
+        'ExposedPorts' => { container_params[:exposed_port]+'/tcp' => {} },
+        'HostConfig' => {
+          'PortBindings' => {
+            container_params[:exposed_port]+'/tcp' => [{ 'HostPort' => container_params[:host_port] }]
+          }
         }
-      }
-      )
+        )
 
-    @container = Container.new(:name => container_params[:name], :image => container_params[:image], :command => container_params[:command], :exposed_port => container_params[:exposed_port], 
-      :host_port => container_params[:host_port], :container_id => @con.id, :status => 'Created')
+      @container = Container.new(:name => container_params[:name], :image => container_params[:image], :command => container_params[:command], :exposed_port => container_params[:exposed_port], 
+        :host_port => container_params[:host_port], :container_id => @con.id, :status => 'Created')
 
-    respond_to do |format|
-      if @container.save
+      respond_to do |format|
+        if @container.save
 
-        format.html { redirect_to root_path, notice: 'Container was successfully created.' }
-        format.json { render :show, status: :created, location: @container }
-      else
-        format.html { render :new }
-        format.json { render json: @container.errors, status: :unprocessable_entity }
+          format.html { redirect_to root_path, notice: 'Container was successfully created.' }
+          format.json { render :show, status: :created, location: @container }
+        else
+          format.html { render :new }
+          format.json { render json: @container.errors, status: :unprocessable_entity }
+        end
       end
+
+    rescue Docker::Error::ClientError => e
+      respond_to do |format| 
+        format.html { redirect_to root_path, notice: "Oops: #{e.message}" }
+      end
+
+    rescue Docker::Error::NotFoundError => e
+      respond_to do |format| 
+        format.html { redirect_to root_path, notice: "Oops: #{e.message}" }
+      end
+
     end
   end
 
@@ -75,11 +92,18 @@ class ContainersController < ApplicationController
   # DELETE /containers/1
   # DELETE /containers/1.json
   def destroy
-    Docker::Container.get(Container.find(params[:id]).container_id).stop.remove;
-    @container.destroy
-    respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Container was started.' }
-      format.json { head :no_content }
+    begin
+      Docker::Container.get(Container.find(params[:id]).container_id).remove;
+      @container.destroy
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: 'deleted.' }
+        format.json { head :no_content }
+      end
+
+    rescue Docker::Error::ConflictError => e
+      respond_to do |format| 
+        format.html { redirect_to root_path, notice: "Oops: You cannot remove a running container. Stop the container before attempting removal" }
+      end
     end
   end
 
