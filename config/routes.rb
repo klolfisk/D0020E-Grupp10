@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  devise_for :users
 	resources :containers
 	root 'home#index'
 	resources :servers
