@@ -1,0 +1,1 @@
+json.array! @servertags, partial: 'servertags/servertag', as: :servertag

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Containertags</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Container</th>
+      <th>Tag</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @containertags.each do |containertag| %>
+      <tr>
+        <td><%= containertag.container %></td>
+        <td><%= containertag.tag %></td>
+        <td><%= link_to 'Show', containertag %></td>
+        <td><%= link_to 'Edit', edit_containertag_path(containertag) %></td>
+        <td><%= link_to 'Destroy', containertag, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Containertag', new_containertag_path %>

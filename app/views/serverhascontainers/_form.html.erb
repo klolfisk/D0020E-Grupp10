@@ -1,0 +1,27 @@
+<%= form_for(serverhascontainer) do |f| %>
+  <% if serverhascontainer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(serverhascontainer.errors.count, "error") %> prohibited this serverhascontainer from being saved:</h2>
+
+      <ul>
+      <% serverhascontainer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :container_id %>
+    <%= f.text_field :container_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :server_id %>
+    <%= f.text_field :server_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
