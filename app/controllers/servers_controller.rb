@@ -25,7 +25,7 @@ class ServersController < ApplicationController
   # POST /servers.json
   def create
     @server = Server.new(server_params)
-
+    
     respond_to do |format|
       if @server.save
         format.html { redirect_to @server, notice: 'Server was successfully created.' }

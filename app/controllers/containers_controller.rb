@@ -1,18 +1,20 @@
 class ContainersController < ApplicationController
-  
+
   #workaround to use NO AUTHENTICATION - UNSAFE
   skip_before_filter :verify_authenticity_token
 
   #change to docker-ip:remote-docker-api-port
-  Docker.url = 'tcp://192.168.1.243:4243';
+  #Docker.url = 'tcp://192.168.1.243:4243';
   #Docker.url = 'tcp://192.168.1.142:4243';
 
   before_action :set_container, only: [:show, :edit, :update, :destroy, :start, :stop, :pause, :unpause]
+  
 
   # GET /containers
   # GET /containers.json
   def index
     @containers = Container.all
+    @servers = Servers.all
   end
 
   # GET /containers/1
@@ -37,6 +39,11 @@ class ContainersController < ApplicationController
 
   def create
     begin
+      #get the server chosen container_params[:server_name]
+      @currentServer = Server.where(name: container_params[:server_name])
+      Docker.url = 'tcp://' + @currentServer[0]["ip"] + ":" + @currentServer[0]["port"]
+
+      #create memes
       @con = Docker::Container.create(
         'name' => container_params[:name],
         'Image' => container_params[:image],
@@ -50,6 +57,8 @@ class ContainersController < ApplicationController
 
       @container = Container.new(:name => container_params[:name], :image => container_params[:image], :command => container_params[:command], :exposed_port => container_params[:exposed_port], 
         :host_port => container_params[:host_port], :container_id => @con.id, :status => 'Created')
+
+      Docker.url = ''
 
       respond_to do |format|
         if @container.save
@@ -68,6 +77,11 @@ class ContainersController < ApplicationController
       end
 
     rescue Docker::Error::NotFoundError => e
+      respond_to do |format| 
+        format.html { redirect_to root_path, notice: "Oops: #{e.message}" }
+      end
+
+    rescue Docker::Error::ConflictError => e
       respond_to do |format| 
         format.html { redirect_to root_path, notice: "Oops: #{e.message}" }
       end
@@ -93,7 +107,7 @@ class ContainersController < ApplicationController
   # DELETE /containers/1.json
   def destroy
     begin
-      Docker::Container.get(Container.find(params[:id]).container_id).remove;
+     Docker::Container.get(Container.find(params[:id]).container_id).remove;
       @container.destroy
       respond_to do |format|
         format.html { redirect_to root_path, notice: 'deleted.' }
@@ -148,6 +162,6 @@ class ContainersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def container_params
-      params.require(:container).permit(:name, :image, :command, :exposed_port, :host_port)
+      params.require(:container).permit(:name, :image, :command, :exposed_port, :host_port, :server_name)
     end
   end
