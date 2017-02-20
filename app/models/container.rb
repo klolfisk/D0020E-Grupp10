@@ -1,4 +1,5 @@
 class Container < ApplicationRecord
-	#is this the way to make a column which is temporary?
 	attr_accessor :server_name
+	has_many :servercontainers
+	has_many :servers, :through => :servercontainers
 end

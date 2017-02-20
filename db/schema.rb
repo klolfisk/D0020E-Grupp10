@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170126145713) do
+ActiveRecord::Schema.define(version: 20170220153236) do
 
   create_table "containers", force: :cascade do |t|
     t.string   "name"
@@ -20,6 +20,13 @@ ActiveRecord::Schema.define(version: 20170126145713) do
     t.string   "status"
     t.string   "exposed_port"
     t.string   "host_port"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "servercontainers", force: :cascade do |t|
+    t.integer  "server_id"
+    t.integer  "container_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end

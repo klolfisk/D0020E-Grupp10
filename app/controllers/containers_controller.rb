@@ -14,7 +14,6 @@ class ContainersController < ApplicationController
   # GET /containers.json
   def index
     @containers = Container.all
-    @servers = Servers.all
   end
 
   # GET /containers/1
@@ -33,9 +32,6 @@ class ContainersController < ApplicationController
 
   # POST /containers
   # POST /containers.json
-
-  #Docker::Error::ClientError => No command specified
-  #Docker::Error::NotFoundError => No such image
 
   def create
     begin
@@ -57,6 +53,9 @@ class ContainersController < ApplicationController
 
       @container = Container.new(:name => container_params[:name], :image => container_params[:image], :command => container_params[:command], :exposed_port => container_params[:exposed_port], 
         :host_port => container_params[:host_port], :container_id => @con.id, :status => 'Created')
+
+      #denna skitraden fungerar inte, varför?
+      Servercontainer.new(:server_id => @currentServer[0].id, :container_id => @container.id).save
 
       Docker.url = ''
 
@@ -107,7 +106,7 @@ class ContainersController < ApplicationController
   # DELETE /containers/1.json
   def destroy
     begin
-     Docker::Container.get(Container.find(params[:id]).container_id).remove;
+      #Docker::Container.get(Container.find(params[:id]).container_id).remove;
       @container.destroy
       respond_to do |format|
         format.html { redirect_to root_path, notice: 'deleted.' }

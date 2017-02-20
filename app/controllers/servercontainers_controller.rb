@@ -1,0 +1,3 @@
+class ServercontainersController < ApplicationController
+
+end

@@ -3,5 +3,6 @@ class HomeController < ApplicationController
 		@servers = Server.all
 		@containers = Container.all
 		@newContainer = Container.new
+		@newServer = Server.new
 	end
 end

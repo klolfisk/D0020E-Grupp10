@@ -4,7 +4,7 @@
 
 <div class="row">
 
-<p id="notice"><%= notice %></p>
+  <p id="notice"><%= notice %></p>
 
   <div class="col-md-6">
     <h2>Servers</h2>
@@ -79,6 +79,25 @@
         <div class="modal-body">
           <p>
             <%= render 'containers/form', container: @newContainer %>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="newServer" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">New Server</h4>
+        </div>
+        <div class="modal-body">
+          <p>
+            <%= render 'servers/form', server: @newServer %>
           </p>
         </div>
         <div class="modal-footer">
