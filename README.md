@@ -1,7 +1,5 @@
-D0020E, Autumn of '16
-============================
-Project in computer science, Group 10
-
+D0021E
+=======
 This is a project for the course D0020E at Luleå University of Technology.
 The goal of the project is to make a web-based GUI for administering Docker containers.
 
@@ -12,7 +10,7 @@ The system should:
 
 We have chosen to not focus on the following features:
 * Good looks.
-* TODO
+* Network configuration. This is a simple plug and play solution, locally. It will not set up a network tunnel for you.
 * TODO
 
 Get started
@@ -75,3 +73,4 @@ Agile workflow in git:
 * [waffle.io](https://waffle.io/)
 * [How GitHub uses GitHub to build GitHub](https://www.youtube.com/watch?v=qyz3jkOBbQY)
 * [Github Scrum Workflow](https://github.com/jvandemo/github-scrum-workflow)
+>>>>>>> master
