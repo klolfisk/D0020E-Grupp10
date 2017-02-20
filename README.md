@@ -73,4 +73,3 @@ Agile workflow in git:
 * [waffle.io](https://waffle.io/)
 * [How GitHub uses GitHub to build GitHub](https://www.youtube.com/watch?v=qyz3jkOBbQY)
 * [Github Scrum Workflow](https://github.com/jvandemo/github-scrum-workflow)
->>>>>>> master
