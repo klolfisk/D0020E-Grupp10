@@ -1,0 +1,1 @@
+json.array! @serverhascontainers, partial: 'serverhascontainers/serverhascontainer', as: :serverhascontainer

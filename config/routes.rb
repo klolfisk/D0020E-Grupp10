@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :serverhascontainers
 	resources :containers
 	root 'home#index'
 	resources :servers

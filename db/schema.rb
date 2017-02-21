@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170220153236) do
+ActiveRecord::Schema.define(version: 20170221181840) do
 
   create_table "containers", force: :cascade do |t|
     t.string   "name"
@@ -24,11 +24,13 @@ ActiveRecord::Schema.define(version: 20170220153236) do
     t.datetime "updated_at",   null: false
   end
 
-  create_table "servercontainers", force: :cascade do |t|
-    t.integer  "server_id"
+  create_table "serverhascontainers", force: :cascade do |t|
     t.integer  "container_id"
+    t.integer  "server_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.index ["container_id"], name: "index_serverhascontainers_on_container_id"
+    t.index ["server_id"], name: "index_serverhascontainers_on_server_id"
   end
 
   create_table "servers", force: :cascade do |t|

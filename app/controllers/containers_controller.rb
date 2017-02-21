@@ -3,10 +3,6 @@ class ContainersController < ApplicationController
   #workaround to use NO AUTHENTICATION - UNSAFE
   skip_before_filter :verify_authenticity_token
 
-  #change to docker-ip:remote-docker-api-port
-  #Docker.url = 'tcp://192.168.1.243:4243';
-  #Docker.url = 'tcp://192.168.1.142:4243';
-
   before_action :set_container, only: [:show, :edit, :update, :destroy, :start, :stop, :pause, :unpause]
   
 
@@ -39,8 +35,14 @@ class ContainersController < ApplicationController
       @currentServer = Server.where(name: container_params[:server_name])
       Docker.url = 'tcp://' + @currentServer[0]["ip"] + ":" + @currentServer[0]["port"]
 
-      #create memes
-      @con = Docker::Container.create(
+      #create the container in docker
+      if container_params[:exposed_port].blank?
+        @con = Docker::Container.create(
+        'name' => container_params[:name],
+        'Image' => container_params[:image]
+        )      
+      else 
+        @con = Docker::Container.create(
         'name' => container_params[:name],
         'Image' => container_params[:image],
         'ExposedPorts' => { container_params[:exposed_port]+'/tcp' => {} },
@@ -50,7 +52,9 @@ class ContainersController < ApplicationController
           }
         }
       )
+      end
 
+      #adds the container into the database
       @container = Container.new(:name => container_params[:name], :image => container_params[:image], :command => container_params[:command], :exposed_port => container_params[:exposed_port], 
         :host_port => container_params[:host_port], :container_id => @con.id, :status => 'Created')
 
@@ -58,7 +62,7 @@ class ContainersController < ApplicationController
 
       respond_to do |format|
         if @container.save
-          Servercontainer.new(:server_id => @currentServer[0].id, :container_id => @container.id).save
+          Serverhascontainer.new(:server_id => @currentServer[0].id, :container_id => @container.id).save
           format.html { redirect_to root_path, notice: 'Container was successfully created.' }
           format.json { render :show, status: :created, location: @container }
         else
@@ -104,7 +108,7 @@ class ContainersController < ApplicationController
   def destroy
     begin
       #finds the current server that the container is on and sets it as Docker.ulr
-      @serverid = Servercontainer.where(container_id: @container.id)[0].server_id;
+      @serverid = Serverhascontainer.where(container_id: @container.id)[0].server_id;
       @currentServer = Server.where(id: @serverid)
       Docker.url = 'tcp://' + @currentServer[0]["ip"] + ":" + @currentServer[0]["port"]
 
@@ -112,8 +116,8 @@ class ContainersController < ApplicationController
       Docker::Container.get(Container.find(params[:id]).container_id).remove;
 
       #removes the Server-container relation from the database
-      @d = Servercontainer.where(container_id: @container.id)        
-      Servercontainer.destroy(@d[0].id);
+      @d = Serverhascontainer.where(container_id: @container.id)        
+      Serverhascontainer.destroy(@d[0].id);
 
       #removes the container from the database
       @container.destroy
@@ -131,7 +135,7 @@ class ContainersController < ApplicationController
   end
 
   def start
-    @serverid = Servercontainer.where(container_id: @container.id)[0].server_id;
+    @serverid = Serverhascontainer.where(container_id: @container.id)[0].server_id;
     @currentServer = Server.where(id: @serverid)
     Docker.url = 'tcp://' + @currentServer[0]["ip"] + ":" + @currentServer[0]["port"]
 
@@ -145,7 +149,7 @@ class ContainersController < ApplicationController
   end
 
   def stop
-    @serverid = Servercontainer.where(container_id: @container.id)[0].server_id;
+    @serverid = Serverhascontainer.where(container_id: @container.id)[0].server_id;
     @currentServer = Server.where(id: @serverid)
     Docker.url = 'tcp://' + @currentServer[0]["ip"] + ":" + @currentServer[0]["port"]
 
@@ -158,7 +162,7 @@ class ContainersController < ApplicationController
   end
 
   def pause
-    @serverid = Servercontainer.where(container_id: @container.id)[0].server_id;
+    @serverid = Serverhascontainer.where(container_id: @container.id)[0].server_id;
     @currentServer = Server.where(id: @serverid)
     Docker.url = 'tcp://' + @currentServer[0]["ip"] + ":" + @currentServer[0]["port"]
 
@@ -171,7 +175,7 @@ class ContainersController < ApplicationController
   end
 
   def unpause
-    @serverid = Servercontainer.where(container_id: @container.id)[0].server_id;
+    @serverid = Serverhascontainer.where(container_id: @container.id)[0].server_id;
     @currentServer = Server.where(id: @serverid)
     Docker.url = 'tcp://' + @currentServer[0]["ip"] + ":" + @currentServer[0]["port"]
 
@@ -191,7 +195,7 @@ class ContainersController < ApplicationController
 
     #fungerar inte atm
     def findServer
-      @serverid = Servercontainer.where(container_id: @container.id)[0].server_id;
+      @serverid = Serverhascontainer.where(container_id: @container.id)[0].server_id;
       @currentServer = Server.where(id: @serverid)
       @c = 'tcp://' + @currentServer[0]["ip"] + ":" + @currentServer[0]["port"]
       return @c;

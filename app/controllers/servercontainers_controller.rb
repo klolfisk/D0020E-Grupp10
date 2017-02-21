@@ -1,3 +1,0 @@
-class ServercontainersController < ApplicationController
-
-end
