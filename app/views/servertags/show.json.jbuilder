@@ -1,0 +1,1 @@
+json.partial! "servertags/servertag", servertag: @servertag

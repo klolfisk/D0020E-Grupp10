@@ -1,0 +1,1 @@
+json.partial! "containertags/containertag", containertag: @containertag
