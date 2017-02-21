@@ -49,19 +49,16 @@ class ContainersController < ApplicationController
             container_params[:exposed_port]+'/tcp' => [{ 'HostPort' => container_params[:host_port] }]
           }
         }
-        )
+      )
 
       @container = Container.new(:name => container_params[:name], :image => container_params[:image], :command => container_params[:command], :exposed_port => container_params[:exposed_port], 
         :host_port => container_params[:host_port], :container_id => @con.id, :status => 'Created')
-
-      #denna skitraden fungerar inte, varför?
-      Servercontainer.new(:server_id => @currentServer[0].id, :container_id => @container.id).save
 
       Docker.url = ''
 
       respond_to do |format|
         if @container.save
-
+          Servercontainer.new(:server_id => @currentServer[0].id, :container_id => @container.id).save
           format.html { redirect_to root_path, notice: 'Container was successfully created.' }
           format.json { render :show, status: :created, location: @container }
         else
@@ -106,8 +103,21 @@ class ContainersController < ApplicationController
   # DELETE /containers/1.json
   def destroy
     begin
-      #Docker::Container.get(Container.find(params[:id]).container_id).remove;
+      #finds the current server that the container is on and sets it as Docker.ulr
+      @serverid = Servercontainer.where(container_id: @container.id)[0].server_id;
+      @currentServer = Server.where(id: @serverid)
+      Docker.url = 'tcp://' + @currentServer[0]["ip"] + ":" + @currentServer[0]["port"]
+
+      #removes the container from docker
+      Docker::Container.get(Container.find(params[:id]).container_id).remove;
+
+      #removes the Server-container relation from the database
+      @d = Servercontainer.where(container_id: @container.id)        
+      Servercontainer.destroy(@d[0].id);
+
+      #removes the container from the database
       @container.destroy
+      Docker.url = ''
       respond_to do |format|
         format.html { redirect_to root_path, notice: 'deleted.' }
         format.json { head :no_content }
@@ -121,8 +131,13 @@ class ContainersController < ApplicationController
   end
 
   def start
+    @serverid = Servercontainer.where(container_id: @container.id)[0].server_id;
+    @currentServer = Server.where(id: @serverid)
+    Docker.url = 'tcp://' + @currentServer[0]["ip"] + ":" + @currentServer[0]["port"]
+
     Docker::Container.get(Container.find(params[:id]).container_id).start;
     @container.update(:status => 'running')
+    Docker.url = ''
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Container was started.' }
     end
@@ -130,24 +145,39 @@ class ContainersController < ApplicationController
   end
 
   def stop
+    @serverid = Servercontainer.where(container_id: @container.id)[0].server_id;
+    @currentServer = Server.where(id: @serverid)
+    Docker.url = 'tcp://' + @currentServer[0]["ip"] + ":" + @currentServer[0]["port"]
+
     Docker::Container.get(Container.find(params[:id]).container_id).stop;
     @container.update(:status => 'exited')
+    Docker.url = ''
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Container was stopped.' }
     end
   end
 
   def pause
+    @serverid = Servercontainer.where(container_id: @container.id)[0].server_id;
+    @currentServer = Server.where(id: @serverid)
+    Docker.url = 'tcp://' + @currentServer[0]["ip"] + ":" + @currentServer[0]["port"]
+
     Docker::Container.get(Container.find(params[:id]).container_id).pause;
     @container.update(:status => 'paused')
+    Docker.url = ''
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Container was paused.' }
     end
   end
 
   def unpause
+    @serverid = Servercontainer.where(container_id: @container.id)[0].server_id;
+    @currentServer = Server.where(id: @serverid)
+    Docker.url = 'tcp://' + @currentServer[0]["ip"] + ":" + @currentServer[0]["port"]
+
     Docker::Container.get(Container.find(params[:id]).container_id).unpause;
     @container.update(:status => 'running')
+    Docker.url = ''
     respond_to do |format|
       format.html { redirect_to root_path, notice: 'Container was unpaused.' }
     end
@@ -157,6 +187,14 @@ class ContainersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_container
       @container = Container.find(params[:id])
+    end
+
+    #fungerar inte atm
+    def findServer
+      @serverid = Servercontainer.where(container_id: @container.id)[0].server_id;
+      @currentServer = Server.where(id: @serverid)
+      @c = 'tcp://' + @currentServer[0]["ip"] + ":" + @currentServer[0]["port"]
+      return @c;
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
