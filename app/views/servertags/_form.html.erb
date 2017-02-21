@@ -1,0 +1,27 @@
+<%= form_for(servertag) do |f| %>
+  <% if servertag.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(servertag.errors.count, "error") %> prohibited this servertag from being saved:</h2>
+
+      <ul>
+      <% servertag.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :server_id %>
+    <%= f.text_field :server_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tag_id %>
+    <%= f.text_field :tag_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

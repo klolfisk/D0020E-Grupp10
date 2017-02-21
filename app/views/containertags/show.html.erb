@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Container:</strong>
+  <%= @containertag.container %>
+</p>
+
+<p>
+  <strong>Tag:</strong>
+  <%= @containertag.tag %>
+</p>
+
+<%= link_to 'Edit', edit_containertag_path(@containertag) %> |
+<%= link_to 'Back', containertags_path %>
