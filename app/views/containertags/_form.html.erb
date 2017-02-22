@@ -1,0 +1,27 @@
+<%= form_for(containertag) do |f| %>
+  <% if containertag.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(containertag.errors.count, "error") %> prohibited this containertag from being saved:</h2>
+
+      <ul>
+      <% containertag.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :container_id %>
+    <%= f.text_field :container_id %>
+  </div>
+
+  <div class="field">
+    <%= f.label :tag_id %>
+    <%= f.text_field :tag_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Server:</strong>
+  <%= @servertag.server %>
+</p>
+
+<p>
+  <strong>Tag:</strong>
+  <%= @servertag.tag %>
+</p>
+
+<%= link_to 'Edit', edit_servertag_path(@servertag) %> |
+<%= link_to 'Back', servertags_path %>
