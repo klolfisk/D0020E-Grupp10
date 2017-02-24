@@ -5,5 +5,6 @@ class HomeController < ApplicationController
 		@containers = Container.all
 		@newContainer = Container.new
 		@user = current_user
+		@test = Serverhascontainer.all
 	end
 end

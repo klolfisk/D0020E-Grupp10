@@ -39,9 +39,17 @@
     <%= f.text_field(:host_port, class: "form-control", placeholder: "Host Port") %>
   </div>
 
+  <div class="form-group has-success has-feedback">
+    <%= f.label :server_id, class: "sr-only" %>
+    <%= f.collection_select :server_id, @servers ,:id,:name %>
+  </div>
+
   <div class="actions">
     <%= f.submit(class: "btn btn-default") %>
+    <button type="button" class="btn btn-default right" data-dismiss="modal">Close</button>
   </div>
+
+
 
 </div>
 

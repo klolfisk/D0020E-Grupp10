@@ -12,70 +12,18 @@
         <p class="alert alert-danger"><%= alert %></p>
       <% end %>
       <div class="row">
-        <div class="col-md-6">
-          <h2>Servers</h2>
-          <div class="well">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Ip</th>
-                  <th>Port</th>
-                  <th>Running</th>
-                  <th colspan="3"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @servers.each do |server| %>
-                <tr>
-                  <td><%= server.name %></td>
-                  <td><%= server.ip %></td>
-                  <td><%= server.port %></td>
-                  <td><%= server.running %></td>
-                  <td><%= link_to 'Show', server, class: 'btn btn-primary btn-xs' %> </td>
-                  <td><%= link_to 'Edit', edit_server_path(server), class: 'btn btn-info btn-xs' %> </td>
-                  <td><%= link_to 'Destroy', server, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %></td>
-                </tr>
-                <% end %>
-              </tbody>
-            </table>
+        <% @servers.each do |server| %> 
+          <div class="col-md-6 server" data-server-id=<%= server.id %>>
+            <h2><%= server.name %></h2>
+            <% server.containers.each do |container| %>
+              <div class="containerBox" data-container-id=<%= container.id %>> 
+                <%= container.name %> 
+              </div>
+            <% end %>
           </div>
-        </div>
-        <div class="col-md-6">
-          <h2>Containers</h2>
-          <div class="well">
-            <table>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Image</th>
-                  <th>Exposed port</th>
-                  <th>Host port</th>
-                  <th>Status</th>
-                  <th colspan="3"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @containers.each do |container| %>
-                <tr>
-                  <td><%= container.name %></td>
-                  <td><%= container.image %></td>
-                  <td><%= container.exposed_port %></td>
-                  <td><%= container.host_port %></td>
-                  <td><%= container.status %></td>
-                  <td><%= link_to 'Show', container, class: 'btn btn-primary btn-xs' %></td>
-                  <td><%= link_to 'Stop', stop_container_path(container), class: 'btn btn-info btn-xs' %></td>
-                  <td><%= link_to 'Destroy', container, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %></td>
-                  <td><%= link_to 'Start', start_container_path(container), class: 'btn btn-success btn-xs' %></td>
-                </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-
-        <div class="modal fade" id="newContainer" role="dialog">
+        <% end %>
+        
+        <div class="modal fade" id="newContainerModal" role="dialog">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -86,9 +34,6 @@
                 <p>
                   <%= render 'containers/form', container: @newContainer %>
                 </p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
             </div>
           </div>
