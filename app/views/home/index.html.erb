@@ -3,7 +3,7 @@
 </p>
 <div class="row-offcanvas row-offcanvas-left">
   <%= render partial: 'shared/sidemenu' %>
-  <div id="main">
+  <div id="main"> <!--container för bootstraP!?-->
     <div class="col-md-12">
       <% if notice %>
         <p class="alert alert-success"><%= notice %></p>
@@ -17,7 +17,17 @@
             <h2><%= server.name %></h2>
             <% server.containers.each do |container| %>
               <div class="containerBox" data-container-id=<%= container.id %>> 
-                <%= container.name %> 
+                <tr>
+                  <td><%= container.name %></td>
+                  <td><%= container.image %></td>
+                  <td><%= container.exposed_port %></td>
+                  <td><%= container.host_port %></td>
+                  <td><%= container.status %></td>
+                  <td><%= link_to 'Show', container, class: 'btn btn-primary btn-xs' %></td>
+                  <td><%= link_to 'Stop', stop_container_path(container), class: 'btn btn-info btn-xs' %></td>
+                  <td><%= link_to 'Destroy', container, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %></td>
+                  <td><%= link_to 'Start', start_container_path(container), class: 'btn btn-success btn-xs' %></td>
+                </tr>
               </div>
             <% end %>
           </div>
@@ -39,6 +49,29 @@
           </div>
         </div>
       
+
+
+      <div class="modal fade" id="newServer" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">New Server</h4>
+            </div>
+            <div class="modal-body">
+              <p>
+                <%= render 'servers/form', server: @newServer %>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
       </div>
     </div>
   </div>
