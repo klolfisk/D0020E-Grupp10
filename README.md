@@ -11,7 +11,8 @@ The system should:
 We have chosen to not focus on the following features:
 * Good looks.
 * Network configuration. This is a simple plug and play solution, locally. It will not set up a network tunnel for you.
-* TODO
+* Large scale. This project is not intended for maintaining thousands of containers over thousands of servers, but rather tens of containers over tens of servers.
+* Metrics. The project does not focus on tracking update, data congestion any kind of metrics. It should not be hard to implement som basic metrics but this is still out of the scope of this project.
 
 Get started
 -----------
@@ -19,9 +20,9 @@ Get started
 1. Install Docker
 2. Install Ruby on Rails
 3. Enable Dockers remote API (like [this](https://www.ivankrizsan.se/2016/05/18/enabling-docker-remote-api-on-ubuntu-16-04/))
-4. Clone this repository into Rails. The current working branch is `gui-skeleton`
-5. Run `bundle install`.
-6. Change the `Docker.url` line in the container controller of rails, to use the IP for your docker remote API. If you are running Docker on the same machine as rails, this will be `Docker.url = 'tcp://localhost:4243'`.
+4. Clone this repository into Rails.
+5. Run `bundle install` in the project folder.
+6. Run `rails db:migrate` in the project folder.
 
 Infrastructure
 --------------
@@ -44,10 +45,10 @@ Git branch naming conventions
 
 ### Standard branches
 
-These two branches will always exist and should only be written to by pull requests:
+These two branches ~~will~~ should always exist and should only be written to by pull requests:
 
-* `master` will be merged to from `devel`after every working sprint demo and should always be a stable "release". Only merge from devel and maybe hot fixes if there are critical bugs. Only merging by reviewed pull requests.
 * `devel` will be merged to before every sprint demo, by pull request. All wip branches should be merged here when done.
+* `master` will be merged to from `devel` after every working sprint demo and should always be a stable "release". Only merge from devel and maybe hot fixes if there are critical bugs. Only merging by reviewed pull requests.
 
 ### Work branches
 
@@ -67,9 +68,3 @@ Get github Student developer pack
 
 Git branching model
 * [A successfull Git branching model](http://nvie.com/posts/a-successful-git-branching-model/)
-
-Agile workflow in git:
-* [GitHub Issues Can be Agile if You Do it Right](https://zube.io/blog/agile-project-management-workflow-for-github-issues/)
-* [waffle.io](https://waffle.io/)
-* [How GitHub uses GitHub to build GitHub](https://www.youtube.com/watch?v=qyz3jkOBbQY)
-* [Github Scrum Workflow](https://github.com/jvandemo/github-scrum-workflow)
