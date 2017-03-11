@@ -48,5 +48,7 @@ $(document).on('turbolinks:load', function() { //  http://stackoverflow.com/ques
     selectedServer = "";
 	});
 
+	$(".alert" ).fadeOut(3000);
+
 });
 
