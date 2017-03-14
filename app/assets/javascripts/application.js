@@ -12,14 +12,43 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
 
+var selectedServer = "";
 
 $(document).on('turbolinks:load', function() { //  http://stackoverflow.com/questions/17600093/rails-javascript-not-loading-after-clicking-through-link-to-helper
 	$('[data-toggle=offcanvas]').click(function() {
 		$('.row-offcanvas').toggleClass('active');
 	});
+
+	$(function(){
+	  $('.menu-item').draggable({
+	    cursor: 'move',
+	    containment: 'window',
+	    helper: function() {
+	    	return $(this).clone().appendTo('body');
+	    }
+		});
+		$('.server').droppable({
+			hoverClass: "drop-hover",
+	    drop: function(event, ui) {
+	    	if( $(ui.draggable).hasClass('newContainer')) {
+	      	selectedServer = $(this).attr('data-server-id');
+	     		$('#newContainerModal').modal('show');
+	     	}   
+	    }
+	  });
+	});
+
+	$('#newContainerModal').on('show.bs.modal', function(e) {
+    $(this).find('select[name="container[server_id]"]').val(selectedServer);
+    selectedServer = "";
+	});
+
+	$(".alert" ).fadeOut(3000);
+
 });
 
